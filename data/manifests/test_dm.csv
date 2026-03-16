@@ -1,0 +1,39 @@
+file	label	path	speaker	duration_sec	start_sec	clip_sec	clip_idx
+jimmclean_10.wav	dementia	/content/drive/My Drive/CS7357_Project/data/dementia/Jim McLean/jimmclean_10.wav	jimmclean	90.0	0.0	30.0	0
+jimmclean_10.wav	dementia	/content/drive/My Drive/CS7357_Project/data/dementia/Jim McLean/jimmclean_10.wav	jimmclean	90.0	30.0	30.0	1
+jimmclean_10.wav	dementia	/content/drive/My Drive/CS7357_Project/data/dementia/Jim McLean/jimmclean_10.wav	jimmclean	90.0	60.0	30.0	2
+maureenforrester_5.wav	dementia	/content/drive/My Drive/CS7357_Project/data/dementia/Maureen Forrester/maureenforrester_5.wav	maureenforrester	58.0	0.0	30.0	0
+AllanBurns_5.wav	dementia	/content/drive/My Drive/CS7357_Project/data/dementia/Allan Burns/AllanBurns_5.wav	allanburns	90.00054421768708	0.0	30.0	0
+AllanBurns_5.wav	dementia	/content/drive/My Drive/CS7357_Project/data/dementia/Allan Burns/AllanBurns_5.wav	allanburns	90.00054421768708	30.0	30.0	1
+AllanBurns_5.wav	dementia	/content/drive/My Drive/CS7357_Project/data/dementia/Allan Burns/AllanBurns_5.wav	allanburns	90.00054421768708	60.0	30.0	2
+DennisMoore_5.wav	dementia	/content/drive/My Drive/CS7357_Project/data/dementia/Dennis Moore/DennisMoore_5.wav	dennismoore	90.0162358276644	0.0	30.0	0
+DennisMoore_5.wav	dementia	/content/drive/My Drive/CS7357_Project/data/dementia/Dennis Moore/DennisMoore_5.wav	dennismoore	90.0162358276644	30.0	30.0	1
+DennisMoore_5.wav	dementia	/content/drive/My Drive/CS7357_Project/data/dementia/Dennis Moore/DennisMoore_5.wav	dennismoore	90.0162358276644	60.0	30.0	2
+BobbyWomack_0.wav	dementia	/content/drive/My Drive/CS7357_Project/data/dementia/Bobby Womack/BobbyWomack_0.wav	bobbywomack	38.005714285714284	0.0	30.0	0
+JeanneLittle_10.wav	dementia	/content/drive/My Drive/CS7357_Project/data/dementia/Jeanne Little/JeanneLittle_10.wav	jeannelittle	48.01024943310657	0.0	30.0	0
+RayGalton_5.wav	dementia	/content/drive/My Drive/CS7357_Project/data/dementia/Ray Galton/RayGalton_5.wav	raygalton	71.01170068027211	0.0	30.0	0
+RayGalton_5.wav	dementia	/content/drive/My Drive/CS7357_Project/data/dementia/Ray Galton/RayGalton_5.wav	raygalton	71.01170068027211	30.0	30.0	1
+BobNewhart_2.wav	nodementia	/content/drive/My Drive/CS7357_Project/data/nodementia/Bob Newhart/BobNewhart_2.wav	bobnewhart	69.0	0.0	30.0	0
+BobNewhart_2.wav	nodementia	/content/drive/My Drive/CS7357_Project/data/nodementia/Bob Newhart/BobNewhart_2.wav	bobnewhart	69.0	30.0	30.0	1
+BobNewhart_3.wav	nodementia	/content/drive/My Drive/CS7357_Project/data/nodementia/Bob Newhart/BobNewhart_3.wav	bobnewhart	90.0	0.0	30.0	0
+BobNewhart_3.wav	nodementia	/content/drive/My Drive/CS7357_Project/data/nodementia/Bob Newhart/BobNewhart_3.wav	bobnewhart	90.0	30.0	30.0	1
+BobNewhart_3.wav	nodementia	/content/drive/My Drive/CS7357_Project/data/nodementia/Bob Newhart/BobNewhart_3.wav	bobnewhart	90.0	60.0	30.0	2
+RobertDuvall_3.wav	nodementia	/content/drive/My Drive/CS7357_Project/data/nodementia/Robert Duvall/RobertDuvall_3.wav	robertduvall	28.0	0.0	30.0	0
+RobertDuvall_1.wav	nodementia	/content/drive/My Drive/CS7357_Project/data/nodementia/Robert Duvall/RobertDuvall_1.wav	robertduvall	90.0	0.0	30.0	0
+RobertDuvall_1.wav	nodementia	/content/drive/My Drive/CS7357_Project/data/nodementia/Robert Duvall/RobertDuvall_1.wav	robertduvall	90.0	30.0	30.0	1
+RobertDuvall_1.wav	nodementia	/content/drive/My Drive/CS7357_Project/data/nodementia/Robert Duvall/RobertDuvall_1.wav	robertduvall	90.0	60.0	30.0	2
+RobertDuvall_2.wav	nodementia	/content/drive/My Drive/CS7357_Project/data/nodementia/Robert Duvall/RobertDuvall_2.wav	robertduvall	79.0	0.0	30.0	0
+RobertDuvall_2.wav	nodementia	/content/drive/My Drive/CS7357_Project/data/nodementia/Robert Duvall/RobertDuvall_2.wav	robertduvall	79.0	30.0	30.0	1
+BuddyGuy_2.wav	nodementia	/content/drive/My Drive/CS7357_Project/data/nodementia/Buddy Guy/BuddyGuy_2.wav	buddyguy	41.0	0.0	30.0	0
+BuddyGuy_3.wav	nodementia	/content/drive/My Drive/CS7357_Project/data/nodementia/Buddy Guy/BuddyGuy_3.wav	buddyguy	69.0	0.0	30.0	0
+BuddyGuy_3.wav	nodementia	/content/drive/My Drive/CS7357_Project/data/nodementia/Buddy Guy/BuddyGuy_3.wav	buddyguy	69.0	30.0	30.0	1
+Warren Buffett_2.wav	nodementia	/content/drive/My Drive/CS7357_Project/data/nodementia/Warren Buffett/Warren Buffett_2.wav	warrenbuffett	56.0	0.0	30.0	0
+Warren Buffett_1.wav	nodementia	/content/drive/My Drive/CS7357_Project/data/nodementia/Warren Buffett/Warren Buffett_1.wav	warrenbuffett	30.0	0.0	30.0	0
+NanaMouskouri_1.wav	nodementia	/content/drive/My Drive/CS7357_Project/data/nodementia/Nana Mouskouri/NanaMouskouri_1.wav	nanamouskouri	48.0	0.0	30.0	0
+NanaMouskouri_3.wav	nodementia	/content/drive/My Drive/CS7357_Project/data/nodementia/Nana Mouskouri/NanaMouskouri_3.wav	nanamouskouri	77.0	0.0	30.0	0
+NanaMouskouri_3.wav	nodementia	/content/drive/My Drive/CS7357_Project/data/nodementia/Nana Mouskouri/NanaMouskouri_3.wav	nanamouskouri	77.0	30.0	30.0	1
+SophiaLoren_2.wav	nodementia	/content/drive/My Drive/CS7357_Project/data/nodementia/Sophia Loren/SophiaLoren_2.wav	sophialoren	90.0	0.0	30.0	0
+SophiaLoren_2.wav	nodementia	/content/drive/My Drive/CS7357_Project/data/nodementia/Sophia Loren/SophiaLoren_2.wav	sophialoren	90.0	30.0	30.0	1
+SophiaLoren_2.wav	nodementia	/content/drive/My Drive/CS7357_Project/data/nodementia/Sophia Loren/SophiaLoren_2.wav	sophialoren	90.0	60.0	30.0	2
+SophiaLoren_1.wav	nodementia	/content/drive/My Drive/CS7357_Project/data/nodementia/Sophia Loren/SophiaLoren_1.wav	sophialoren	63.0	0.0	30.0	0
+SophiaLoren_1.wav	nodementia	/content/drive/My Drive/CS7357_Project/data/nodementia/Sophia Loren/SophiaLoren_1.wav	sophialoren	63.0	30.0	30.0	1
