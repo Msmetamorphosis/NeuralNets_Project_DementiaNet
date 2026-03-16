@@ -1,8 +1,8 @@
-# Speech Based Dementia Classification with Wav2Vec2 and SpecAugment
+# Speech Based Dementia Detection with Wav2Vec2 and SpecAugment
 
 ## Project Overview
 
-This project implements and extends a speech based dementia classification pipeline using a fine tuned Wav2Vec2 model. The objective is to reproduce a research baseline and introduce a controlled augmentation experiment to evaluate performance improvements under limited data conditions.
+This project implements and extends a speech based dementia detection pipeline using a fine tuned Wav2Vec2 model. The objective is to reproduce an existing research baseline and introduce a controlled augmentation experiment to evaluate performance improvements under limited data conditions.
 
 The original framework was provided as part of a structured baseline workflow consisting of:
 
@@ -10,7 +10,44 @@ The original framework was provided as part of a structured baseline workflow co
 2. Model fine tuning  
 3. Evaluation  
 
-This repository documents the full pipeline, required modernization steps for current deep learning libraries, and an experimental extension using SpecAugment.
+Original repository:  
+https://github.com/shreyasgite/dementianet/tree/main?tab=readme-ov-file
+
+This repository documents the full pipeline, the updates required to execute the workflow under modern deep learning libraries, and an experimental extension using SpecAugment.
+
+---
+
+## Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/Msmetamorphosis/NeuralNets_Project_DementiaNet.git
+```
+
+Navigate into the project directory:
+
+```bash
+cd NeuralNets_Project_DementiaNet
+```
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## Environment
+
+The project was developed using:
+
+- Python 3.10  
+- PyTorch >= 2.0  
+- Transformers >= 4.36  
+
+All required dependencies are listed in **requirements.txt**.
 
 ---
 
@@ -34,137 +71,302 @@ This project approaches the problem as a supervised binary classification task:
 
 **Healthy Control vs Dementia**
 
-A pre trained Wav2Vec2 speech encoder is fine tuned for this downstream classification objective.
+A pretrained Wav2Vec2 speech encoder is fine tuned for this downstream classification objective.
+---
 
+## Methodology
+
+The experimental pipeline implemented in this repository follows a structured workflow designed to ensure reproducibility and scientific validity.
+
+The system is organized into the following stages.
+
+### 1 Dataset Construction
+
+Raw audio recordings are processed and converted into a structured dataset suitable for model training.
+
+This stage includes:
+
+- audio loading and preprocessing
+- segment generation from source recordings
+- metadata association
+- dataset manifest creation
+
+### 2 Validated Dataset Finalization
+
+A validation stage is introduced to ensure that the training dataset meets consistency and quality requirements.
+
+This stage introduces:
+
+- deterministic audio segment construction
+- dataset validation checks
+- filtering of invalid samples
+- standardized dataset formatting for training
+
+### 3 Scientific Baseline Training
+
+A pretrained Wav2Vec2 speech encoder is fine tuned for binary dementia classification.
+
+The training pipeline includes:
+
+- audio feature extraction using the Wav2Vec2 processor
+- model fine tuning using the HuggingFace Trainer
+- class weighted cross entropy loss for imbalance handling
+- periodic evaluation during training
+
+This stage establishes the baseline model used for experimental comparison.
+
+### 4 SpecAugment Experimental Extension
+
+After establishing the baseline model, a controlled experimental condition introduces SpecAugment.
+
+SpecAugment performs structured masking along time and frequency dimensions during training. This improves model robustness by encouraging the model to learn more generalized acoustic representations.
+
+Two training conditions are evaluated:
+
+Baseline model without augmentation  
+Model trained with SpecAugment enabled
+
+### 5 Evaluation and Comparison
+
+The trained models are evaluated using several performance metrics including:
+
+- accuracy
+- precision
+- recall
+- macro F1 score
+
+Comparative evaluation enables measurement of the impact of augmentation on model performance and generalization.
 ---
 
 ## Baseline Reproduction
 
-The initial goal was to successfully reproduce the provided baseline pipeline. This required:
+The initial goal was to reproduce the baseline pipeline provided in the original DementiaNet implementation.
+
+This required:
 
 - Preparing audio data into model ready format  
 - Configuring the Wav2Vec2 backbone  
-- Implementing a custom speech classification head  
-- Executing fine tuning for a fixed number of epochs  
+- Training a speech classification model  
 - Running evaluation to establish baseline metrics  
 
-The original notebook was written against an earlier version of the Hugging Face Transformers library. In order to execute the baseline successfully under the current library stack, several compatibility updates were required:
+The original implementation was written against older versions of the HuggingFace Transformers library. In order to execute the baseline under the current ecosystem, several compatibility updates were required.
 
-- Updating the custom Trainer implementation to align with the Transformers version 5 API  
-- Refactoring deprecated mixed precision handling  
-- Resolving weight tying compatibility changes  
-- Adjusting training step behavior to use Accelerator based backpropagation  
+These updates included:
 
-These updates ensured that the baseline could be reproduced faithfully under the modern training framework.
+- Updating the custom Trainer implementation to align with the current Transformers API  
+- Refactoring deprecated training calls  
+- Resolving compatibility issues introduced by newer Transformers releases  
+- Ensuring the training loop executes correctly under modern PyTorch versions  
+
+These updates allowed the baseline pipeline to run successfully using current deep learning frameworks.
 
 ---
 
 ## Model Architecture
 
-The model consists of:
+The classification model uses the built in HuggingFace implementation:
 
-1. Pre trained Wav2Vec2 encoder  
-2. Custom classification head  
-3. Temporal pooling layer  
-4. Cross entropy loss for binary classification  
+`Wav2Vec2ForSequenceClassification`
 
-### Classification Head
+This architecture consists of:
 
-- Linear projection  
-- Dropout  
-- Non linear activation  
-- Output projection to label space  
+1. Pretrained Wav2Vec2 speech encoder  
+2. Internal sequence level pooling of frame representations  
+3. Dropout regularization  
+4. Linear classification layer  
 
-Pooling across the time dimension is performed using a configurable merge strategy, enabling aggregation of frame level representations into utterance level predictions.
+The classification head is provided internally by the HuggingFace model implementation rather than manually implemented in the notebook.
+
+The encoder extracts contextual speech embeddings from raw waveform input. These embeddings are pooled across time to produce a single utterance level representation which is passed to a linear classifier.
+
+The model predicts two labels:
+
+0 → Healthy Control  
+1 → Dementia
+
+---
+
+## Loss Function
+
+Training uses **class weighted cross entropy loss**.
+
+Class weights are applied during training to mitigate class imbalance between dementia and control samples.
+
+This is implemented through a custom Trainer class that overrides the loss computation while still leveraging the HuggingFace Trainer training loop.
 
 ---
 
 ## Training Configuration
 
-Fine tuning was executed using:
+Model fine tuning is performed using the HuggingFace **Trainer** framework.
 
-- Hugging Face Trainer  
-- Accelerator managed mixed precision  
-- Gradient accumulation  
-- Step based evaluation  
-- Fixed training epochs as defined in the baseline  
+Key training settings include:
 
-The baseline was trained for **22 epochs**, consistent with the original configuration. The intent was to establish a stable reference point prior to experimentation.
+- Pretrained `facebook/wav2vec2-base` encoder  
+- Class weighted loss for imbalance handling  
+- Epoch based evaluation  
+- Model checkpoint saving each epoch  
+- Fixed training schedule
+
+The baseline model is trained for **22 epochs**, following the configuration used in the original baseline.
+
+The purpose of this stage is to establish a stable and reproducible baseline before introducing experimental augmentation.
 
 ---
 
 ## Experimental Extension: SpecAugment
 
-After establishing the baseline, a controlled experiment was introduced using SpecAugment.
+After establishing the baseline model, an additional experiment introduces **SpecAugment**, a widely used data augmentation method for speech models.
 
-SpecAugment is a speech data augmentation technique that improves robustness by masking:
+SpecAugment improves robustness by masking regions of the speech representation along:
 
-- Time segments  
-- Frequency bands  
+- Time dimensions  
+- Frequency dimensions  
 
-Rather than modifying the raw waveform, SpecAugment operates on spectral representations, encouraging the model to generalize beyond narrow acoustic patterns.
+This encourages the model to learn more generalized acoustic representations rather than relying on narrow spectral patterns.
+
+SpecAugment is implemented as a separate experimental notebook, allowing direct comparison against the baseline model.
 
 ### Experimental Conditions
 
-**Baseline Condition**  
+**Baseline Condition**
+
 Wav2Vec2 fine tuned without augmentation.
 
-**Augmented Condition**  
-Wav2Vec2 fine tuned with SpecAugment enabled.
+**Augmented Condition**
+
+Wav2Vec2 fine tuned with SpecAugment applied during training.
 
 ### Experimental Objective
 
-The goal of the experiment is to evaluate whether augmentation improves:
+The goal of this experiment is to evaluate whether augmentation improves:
 
 - Validation loss  
 - Classification accuracy  
-- Generalization stability  
+- Macro F1 score  
 
-This is particularly relevant in small dataset scenarios common in medical speech applications.
+This is particularly relevant in small dataset scenarios common in clinical speech datasets.
 
 ---
 
 ## Evaluation
 
-Evaluation is performed using:
+Model evaluation is performed using a held out dataset.
 
-- Validation loss  
-- Classification accuracy  
-- F1 score  
+Evaluation metrics include:
 
-Metrics are computed at defined evaluation intervals during training and at final model convergence.
+- Accuracy  
+- Precision  
+- Recall  
+- Macro F1 score  
 
-Comparative analysis between the baseline and augmented models enables assessment of augmentation effectiveness.
+Macro F1 is used as the primary evaluation metric because it balances performance across both classes and is robust to class imbalance.
+
+Evaluation also includes confusion matrix analysis to examine prediction behavior across classes.
+
+---
+
+## Running the Pipeline
+
+The scientific pipeline should be executed in the following order.
+
+### 1 Build the validated dataset
+
+```
+notebooks/scientific_pipeline/00_build_scientific_dataset.ipynb
+```
+
+### 2 Prepare the dataset for training
+
+```
+notebooks/scientific_pipeline/01_finalize_validated_dataset.ipynb
+```
+
+### 3 Train the Wav2Vec2 classification model
+
+```
+notebooks/scientific_pipeline/02_train_scientific_baseline.ipynb
+```
+
+### 4 Evaluate the trained model
+
+```
+notebooks/scientific_pipeline/03_evaluate_scientific_baseline.ipynb
+```
+
+Each notebook should be executed sequentially to reproduce the full training and evaluation workflow.
 
 ---
 
 ## Repository Structure
 
-- 01_prepare_data: 
-Audio preprocessing and dataset construction
+```
+NeuralNets_Project_DementiaNet
+│
+├── config.py
+├── requirements.txt
+├── README.md
+│
+├── data
+│   ├── metadata
+│   ├── manifests
+│   └── clean_dataset
+│
+├── notebooks
+│   ├── baseline_original
+│   └── scientific_pipeline
+│
+├── models
+│
+└── results
+```
 
-- 02_finetune: 
-Model definition, Trainer configuration, and training loop
+---
 
-- 03_evaluate: 
-Metric computation and final evaluation
+## Key Components
 
+**config.py**
 
-### Custom Components
+Centralized configuration file used to define dataset paths and experiment settings.
 
-- `Wav2Vec2ForSpeechClassification`  
-- Updated `CTCTrainer` compatible with Transformers v5  
-- SpecAugment integration  
+**requirements.txt**
+
+Dependency list required to reproduce the environment used for training and evaluation.
+
+**notebooks/baseline_original**
+
+Contains the reproduction of the originally provided DementiaNet pipeline.
+
+**notebooks/scientific_pipeline**
+
+Contains the validated experimental pipeline used for dataset preparation, training, and evaluation.
+
+---
+
+## Dependencies
+
+Major libraries used in this project include:
+
+- PyTorch  
+- HuggingFace Transformers  
+- HuggingFace Datasets  
+- Scikit Learn  
+- Librosa  
+- NumPy  
+- Pandas  
+- Matplotlib  
+
+All dependencies are listed in **requirements.txt**.
 
 ---
 
 ## Key Contributions of This Implementation
 
-- Successful reproduction of a speech based dementia classification baseline  
+- Reproduction of a speech based dementia detection baseline  
 - Modernization of legacy training code for current Transformers infrastructure  
 - Integration of SpecAugment as a controlled experimental variable  
-- Structured experiment design for baseline vs augmentation comparison  
-- Reproducible training and evaluation pipeline  
+- Structured baseline vs augmentation experimental design  
+- Reproducible training and evaluation pipeline
 
 ---
 
@@ -175,22 +377,89 @@ Potential next steps include:
 - Early stopping integration  
 - Cross validation across folds  
 - Additional augmentation strategies  
-- Alternative pooling mechanisms  
-- Hyperparameter search  
-- Model scaling experiments  
+- Hyperparameter optimization  
+- Model scaling experiments
 
 ---
 
 ## Conclusion
 
-This project establishes a reproducible speech based dementia classification baseline and extends it through structured experimentation with spectral augmentation.
+This project establishes a reproducible speech based dementia detection baseline and extends it through structured experimentation with SpecAugment.
 
-It provides an end to end deep learning workflow including:
+The repository provides a complete deep learning workflow including:
 
 - Data preparation  
-- Model architecture customization  
-- Training framework modernization  
-- Experimental augmentation design  
+- Model training  
+- Experimental augmentation  
 - Performance evaluation  
 
-The repository provides a clean and extensible foundation for further research in speech based cognitive impairment detection.
+This framework provides a foundation for further research into speech based cognitive impairment detection.
+## Project Contributions
+
+This project was completed as a collaborative research effort involving baseline reproduction, pipeline redesign, experimental validation, and augmentation based experimentation built upon the original DementiaNet implementation.
+
+### Crystal Tubbs
+
+- Led the development of the experimental pipeline and coordination of overall research workflow
+- Reproduced and repaired the original DementiaNet baseline implementation to run with current deep learning libraries
+- Updated and repaired the original baseline notebooks:
+  - `01_prepare_dataset.ipynb`
+  - `02_finetune_model.ipynb`
+  - `03_evaluate_model.ipynb`
+
+- Designed and implemented the validated scientific dataset pipeline:
+  - `01_finalize_validated_dataset.ipynb`
+
+- Designed and implemented the scientific baseline training and evaluation pipeline:
+  - `02_train_scientific_baseline.ipynb`
+  - `03_evaluate_scientific_baseline.ipynb`
+
+- Designed and implemented the SpecAugment experimental extension:
+  - `02_train_scientific_specaugment.ipynb`
+  - `03_evaluate_scientific_specaugment.ipynb`
+
+- Implemented dataset validation checks and deterministic audio segment construction
+- Implemented the full Wav2Vec2 training workflow using Hugging Face Trainer
+- Implemented the experiment comparison framework for baseline vs SpecAugment evaluation
+
+### Destiny Raburnel
+
+- Implemented the initial dataset construction notebook (`00_build_scientific_dataset.ipynb`) based on the project pipeline design
+- Created the centralized configuration file (`config.py`) used to standardize dataset paths and experiment settings
+- Assisted with repository organization 
+- Re executed the validated training and evaluation pipeline to confirm reproducibility of experimental results
+- Expanding the SpecAugment evaluation notebook (`03_evaluate_scientific_specaugment.ipynb`) with:
+  - additional visualizations
+  - experiment analysis comparisons
+  - improved documentation and commentary
+- Developing the `04_results_analysis.ipynb` notebook for comparative experiment visualization
+
+### Josh Zuniga
+
+- Explored alternative implementation approaches during early stages of the project to evaluate potential training and preprocessing strategies
+- Contributed to experimentation around pipeline configuration 
+- Implementing experiment result logging and metric tracking
+- Organizing experiment outputs in the `results/` directory
+- Assisting with dataset statistics analysis and project documentation
+
+### Original Baseline
+
+This project builds upon the original DementiaNet baseline implementation created by:
+
+Shreyas Gite  
+https://github.com/shreyasgite/dementianet
+
+The original repository provided the Wav2Vec2 dementia classification framework that this project reproduces, repairs for compatibility with modern libraries, and extends through additional experimentation.
+
+## Reproducibility
+
+Experiments were executed using fixed random seeds to ensure reproducibility of results across runs.
+
+Training, evaluation, and dataset construction steps are fully documented within the provided notebooks and can be reproduced by executing the pipeline in the order described in the "Running the Pipeline" section.
+
+## Experiment Results
+
+| Experiment | Accuracy | Precision | Recall | F1 Score |
+|-----------|----------|----------|--------|---------|
+| Baseline Wav2Vec2 | TBD | TBD | TBD | TBD |
+| Wav2Vec2 + SpecAugment | TBD | TBD | TBD | TBD |
