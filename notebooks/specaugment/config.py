@@ -1,7 +1,7 @@
 from pathlib import Path
 
 # base dataset location
-BASE_DIR = Path("/content/drive/My Drive/NeuralNets Project/data/")
+BASE_DIR = Path("/content/drive/My Drive/NeuralNets_Project_DementiaNet/data/")
 
 # audio folders
 DEMENTIA_DIR = BASE_DIR / "dementia"
