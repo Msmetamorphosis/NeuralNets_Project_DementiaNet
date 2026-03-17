@@ -1,4 +1,5 @@
 # Speech Based Dementia Detection with Wav2Vec2 and SpecAugment
+> Reproducible reconstruction of a dementia speech classification baseline with a controlled SpecAugment experiment.
 
 ## Project Overview
 
@@ -13,7 +14,7 @@ The original framework was provided as part of a structured baseline workflow co
 Original repository:  
 https://github.com/shreyasgite/dementianet/tree/main?tab=readme-ov-file
 
-This repository documents the full pipeline, the updates required to execute the workflow under modern deep learning libraries, and an experimental extension using SpecAugment.
+This NeuralNets repository reconstructs the original pipeline, introduces a scientifically validated baseline, and documents the updates required to execute the workflow under modern deep learning libraries, along with an experimental extension using SpecAugment.
 
 ---
 
@@ -78,6 +79,8 @@ A pretrained Wav2Vec2 speech encoder is fine tuned for this downstream classific
 
 The experimental pipeline implemented in this repository follows a structured workflow designed to ensure reproducibility and scientific validity.
 
+![Pipeline Reconstruction](images/InflatedtoScientific.png)
+
 The system is organized into the following stages.
 
 ### 1 Dataset Construction
@@ -92,6 +95,8 @@ This stage includes:
 - dataset manifest creation
 
 ### 2 Validated Dataset Finalization
+
+![Deterministic Segmentation](images/DeterministicSegmentation.png)
 
 A validation stage is introduced to ensure that the training dataset meets consistency and quality requirements.
 
@@ -140,25 +145,21 @@ Comparative evaluation enables measurement of the impact of augmentation on mode
 
 ## Baseline Reproduction
 
-The initial goal was to reproduce the baseline pipeline provided in the original DementiaNet implementation.
+The initial goal of this project was to reproduce the DementiaNet baseline pipeline.
 
-This required:
+The original implementation relied on older versions of the HuggingFace Transformers library. Running the pipeline with modern frameworks required several updates.
 
-- Preparing audio data into model ready format  
-- Configuring the Wav2Vec2 backbone  
-- Training a speech classification model  
-- Running evaluation to establish baseline metrics  
+Key compatibility fixes included:
 
-The original implementation was written against older versions of the HuggingFace Transformers library. In order to execute the baseline under the current ecosystem, several compatibility updates were required.
+- updating the custom Trainer implementation
 
-These updates included:
+- refactoring deprecated training calls
 
-- Updating the custom Trainer implementation to align with the current Transformers API  
-- Refactoring deprecated training calls  
-- Resolving compatibility issues introduced by newer Transformers releases  
-- Ensuring the training loop executes correctly under modern PyTorch versions  
+- resolving API changes in Transformers
 
-These updates allowed the baseline pipeline to run successfully using current deep learning frameworks.
+- ensuring compatibility with modern PyTorch versions
+
+These updates allowed the baseline pipeline to execute successfully using current deep learning frameworks.
 
 ---
 
@@ -174,8 +175,6 @@ This architecture consists of:
 2. Internal sequence level pooling of frame representations  
 3. Dropout regularization  
 4. Linear classification layer  
-
-The classification head is provided internally by the HuggingFace model implementation rather than manually implemented in the notebook.
 
 The encoder extracts contextual speech embeddings from raw waveform input. These embeddings are pooled across time to produce a single utterance level representation which is passed to a linear classifier.
 
@@ -198,58 +197,27 @@ This is implemented through a custom Trainer class that overrides the loss compu
 
 ## Training Configuration
 
-Model fine tuning is performed using the HuggingFace **Trainer** framework.
+Model training uses the HuggingFace Trainer framework.
 
-Key training settings include:
+Key configuration settings include:
 
-- Pretrained `facebook/wav2vec2-base` encoder  
-- Class weighted loss for imbalance handling  
-- Epoch based evaluation  
-- Model checkpoint saving each epoch  
-- Fixed training schedule
+  - pretrained facebook/wav2vec2-base encoder
 
-The baseline model is trained for **22 epochs**, following the configuration used in the original baseline.
+  - class weighted loss
+
+  - epoch based evaluation
+
+  - checkpoint saving each epoch
+
+The baseline model is trained for 22 epochs, matching the configuration used in the original implementation.
 
 The purpose of this stage is to establish a stable and reproducible baseline before introducing experimental augmentation.
 
 ---
 
-## Experimental Extension: SpecAugment
-
-After establishing the baseline model, an additional experiment introduces **SpecAugment**, a widely used data augmentation method for speech models.
-
-SpecAugment improves robustness by masking regions of the speech representation along:
-
-- Time dimensions  
-- Frequency dimensions  
-
-This encourages the model to learn more generalized acoustic representations rather than relying on narrow spectral patterns.
-
-SpecAugment is implemented as a separate experimental notebook, allowing direct comparison against the baseline model.
-
-### Experimental Conditions
-
-**Baseline Condition**
-
-Wav2Vec2 fine tuned without augmentation.
-
-**Augmented Condition**
-
-Wav2Vec2 fine tuned with SpecAugment applied during training.
-
-### Experimental Objective
-
-The goal of this experiment is to evaluate whether augmentation improves:
-
-- Validation loss  
-- Classification accuracy  
-- Macro F1 score  
-
-This is particularly relevant in small dataset scenarios common in clinical speech datasets.
-
----
-
 ## Evaluation
+
+![Baseline vs SpecAugment Confusion Matrix](images/ConfusionM.png)
 
 Model evaluation is performed using a held out dataset.
 
@@ -394,6 +362,7 @@ The repository provides a complete deep learning workflow including:
 - Performance evaluation  
 
 This framework provides a foundation for further research into speech based cognitive impairment detection.
+
 ## Project Contributions
 
 This project was completed as a collaborative research effort involving baseline reproduction, pipeline redesign, experimental validation, and augmentation based experimentation built upon the original DementiaNet implementation.
@@ -441,15 +410,6 @@ This project was completed as a collaborative research effort involving baseline
 - Implementing experiment result logging and metric tracking
 - Organizing experiment outputs in the `results/` directory
 - Assisting with dataset statistics analysis and project documentation
-
-### Original Baseline
-
-This project builds upon the original DementiaNet baseline implementation created by:
-
-Shreyas Gite  
-https://github.com/shreyasgite/dementianet
-
-The original repository provided the Wav2Vec2 dementia classification framework that this project reproduces, repairs for compatibility with modern libraries, and extends through additional experimentation.
 
 ## Reproducibility
 
