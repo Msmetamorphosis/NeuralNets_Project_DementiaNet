@@ -93,10 +93,10 @@ This stage includes:
 - segment generation from source recordings
 - metadata association
 - dataset manifest creation
+  
+![Dataset Construction](images/Dataset_Construction.png)
 
 ### 2 Validated Dataset Finalization
-
-![Deterministic Segmentation](images/DeterministicSegmentation.png)
 
 A validation stage is introduced to ensure that the training dataset meets consistency and quality requirements.
 
@@ -106,6 +106,8 @@ This stage introduces:
 - dataset validation checks
 - filtering of invalid samples
 - standardized dataset formatting for training
+
+   ![Deterministic Segmentation](images/DeterministicSegmentation.png)
 
 ### 3 Scientific Baseline Training
 
