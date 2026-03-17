@@ -380,7 +380,7 @@ This project was completed as a collaborative research effort involving baseline
   - `02_finetune_model.ipynb`
   - `03_evaluate_model.ipynb`
 
-- Designed and implemented the validated scientific dataset pipeline:
+- Extended the dataset pipeline from the initial dataset construction (00 notebook) and implemented a validated, scientifically rigorous dataset processing workflow:
   - `01_finalize_validated_dataset.ipynb`
 
 - Designed and implemented the scientific baseline training and evaluation pipeline:
