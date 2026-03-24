@@ -4,7 +4,7 @@ import sys
 IN_COLAB = "google.colab" in sys.modules
 
 if IN_COLAB:
-PROJECT_ROOT = Path("/content/drive/MyDrive/NeuralNets_Project_DementiaNet")
+    PROJECT_ROOT = Path("/content/drive/MyDrive/NeuralNets_Project_DementiaNet")
     BASE_DIR = Path("/content/drive/MyDrive/NeuralNets_Project_DementiaNet/data")
 else:
     PROJECT_ROOT = Path(__file__).resolve().parent
