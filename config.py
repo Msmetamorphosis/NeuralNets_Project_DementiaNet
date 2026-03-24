@@ -1,24 +1,27 @@
 from pathlib import Path
 import sys
 
-# figure out project root depending on where this is running
-if "google.colab" in sys.modules:
-    PROJECT_ROOT = Path("/content/drive/MyDrive/NeuralNets_Project_DementiaNet")
-else:
-    PROJECT_ROOT = Path(__file__).resolve().parent
+# detect if running in colab
+IN_COLAB = "google.colab" in sys.modules
 
-# base data location
+if IN_COLAB:
+    from google.colab import drive
+    drive.mount('/content/drive')
+
+# dynamically find project root
+PROJECT_ROOT = Path.cwd()
+
+while PROJECT_ROOT.name != "NeuralNets_Project_DementiaNet":
+    PROJECT_ROOT = PROJECT_ROOT.parent
+
+# base paths
 BASE_DIR = PROJECT_ROOT / "data"
-
-# audio folders
-DEMENTIA_DIR = BASE_DIR / "audio" / "dementia"
-NODEMENTIA_DIR = BASE_DIR / "audio" / "nodementia"
 
 # metadata
 DEMENTIA_META = BASE_DIR / "metadata" / "dementia.csv"
 NODEMENTIA_META = BASE_DIR / "metadata" / "nodementia.csv"
 
-# output
+# outputs
 OUTPUT_DIR = BASE_DIR / "clean_dataset"
 
 # manifests
