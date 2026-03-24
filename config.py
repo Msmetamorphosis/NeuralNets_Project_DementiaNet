@@ -1,6 +1,5 @@
 from pathlib import Path
 
-# always assume colab for this project
 PROJECT_ROOT = Path("/content/NeuralNets_Project_DementiaNet")
 BASE_DIR = Path("/content/drive/MyDrive/NeuralNets_Project_DementiaNet/data")
 
