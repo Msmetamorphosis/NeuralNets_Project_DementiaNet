@@ -401,15 +401,16 @@ This project was completed as a collaborative research effort involving baseline
 - Created the centralized configuration file (`config.py`) used to standardize dataset paths and experiment settings
 - Assisted with repository organization 
 - Re executed the validated training and evaluation pipeline to confirm reproducibility of experimental results
+  
 
 ### Josh Zuniga
 
 - Explored alternative implementation approaches during early stages of the project to evaluate potential training and preprocessing strategies 
 - Contributed to experimentation around pipeline configuration
-- Implementing experiment result logging and metric tracking
 - Organizing experiment outputs in the results/ directory
-- Assisting with dataset statistics analysis and project documentatior
 
+### All parties
+- Contributed to analysis, writing and organization of proposal, midterm and final reports, 
 ## Reproducibility
 
 Experiments were executed using fixed random seeds to ensure reproducibility of results across runs.
