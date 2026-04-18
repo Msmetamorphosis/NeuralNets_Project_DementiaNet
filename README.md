@@ -401,12 +401,14 @@ This project was completed as a collaborative research effort involving baseline
 - Created the centralized configuration file (`config.py`) used to standardize dataset paths and experiment settings
 - Assisted with repository organization 
 - Re executed the validated training and evaluation pipeline to confirm reproducibility of experimental results
-- Expanding the SpecAugment evaluation notebook (`03_evaluate_scientific_specaugment.ipynb`) with:
-  - additional visualizations
-  - experiment analysis comparisons
-  - improved documentation and commentary
-- Developing the `04_results_analysis.ipynb` notebook for comparative experiment visualization
 
+### Josh Zuniga
+
+- Explored alternative implementation approaches during early stages of the project to evaluate potential training and preprocessing strategies 
+- Contributed to experimentation around pipeline configuration
+- Implementing experiment result logging and metric tracking
+- Organizing experiment outputs in the results/ directory
+- Assisting with dataset statistics analysis and project documentatior
 
 ## Reproducibility
 
