@@ -22,5 +22,8 @@ SEED = RANDOM_SEED
 TEST_SPLIT_PERCENT = 0.15
 VALID_SPLIT_PERCENT = 0.15
 
+# Fixed-length clips for manifests (see 01_finalize_validated_dataset.ipynb)
+CLIP_SECONDS = 30
+
 TRAIN_STRIDE = 20
 EVAL_STRIDE = 30

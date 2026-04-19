@@ -16,6 +16,13 @@ https://github.com/shreyasgite/dementianet/tree/main?tab=readme-ov-file
 
 This NeuralNets repository reconstructs the original pipeline, introduces a scientifically validated baseline, and documents the updates required to execute the workflow under modern deep learning libraries, along with an experimental extension using SpecAugment.
 
+**Run online without installing anything locally:** open the Colab hub notebook first — it links every pipeline step and explains what you need on Google Drive:  
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Msmetamorphosis/NeuralNets_Project_DementiaNet/blob/main/notebooks/Colab_start_here.ipynb)
+
+*(If the link returns 404, your default branch may not be `main` yet. On GitHub, open `notebooks/Colab_start_here.ipynb`, then use **Open in Google Colab** from the file view, or replace `main` in the URL with your branch name.)*
+
+The notebooks are **Colab-first** on purpose: other students and the instructor can run the same pipeline in a browser with a Google account, without setting up a local GPU machine.
+
 ---
 
 ## Installation
@@ -37,6 +44,21 @@ Install dependencies:
 ```bash
 pip install -r requirements.txt
 ```
+
+### Run in Google Colab (click-through pipeline)
+
+Notebooks are written for Colab (Drive mount, GPU). Use the same order as locally:
+
+| Stage | Notebook | Colab |
+|------|-----------|-------|
+| Hub (start here — data tips + all links) | [`notebooks/Colab_start_here.ipynb`](notebooks/Colab_start_here.ipynb) | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Msmetamorphosis/NeuralNets_Project_DementiaNet/blob/main/notebooks/Colab_start_here.ipynb) |
+| Dataset build (pass 1) | [`notebooks/scientifically_valid_baseline/00_build_scientific_dataset.ipynb`](notebooks/scientifically_valid_baseline/00_build_scientific_dataset.ipynb) | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Msmetamorphosis/NeuralNets_Project_DementiaNet/blob/main/notebooks/scientifically_valid_baseline/00_build_scientific_dataset.ipynb) |
+| Dataset finalize (30 s clips) | [`notebooks/scientifically_valid_baseline/01_finalize_validated_dataset.ipynb`](notebooks/scientifically_valid_baseline/01_finalize_validated_dataset.ipynb) | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Msmetamorphosis/NeuralNets_Project_DementiaNet/blob/main/notebooks/scientifically_valid_baseline/01_finalize_validated_dataset.ipynb) |
+| Train scientific baseline | [`notebooks/scientifically_valid_baseline/02_train_scientific_baseline.ipynb`](notebooks/scientifically_valid_baseline/02_train_scientific_baseline.ipynb) | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Msmetamorphosis/NeuralNets_Project_DementiaNet/blob/main/notebooks/scientifically_valid_baseline/02_train_scientific_baseline.ipynb) |
+| Train SpecAugment variant | [`notebooks/specaugment/02_train_scientific_specaugment.ipynb`](notebooks/specaugment/02_train_scientific_specaugment.ipynb) | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Msmetamorphosis/NeuralNets_Project_DementiaNet/blob/main/notebooks/specaugment/02_train_scientific_specaugment.ipynb) |
+| Compare baseline vs SpecAugment | [`notebooks/specaugment/03_compare_baseline_vs_specaugment.ipynb`](notebooks/specaugment/03_compare_baseline_vs_specaugment.ipynb) | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Msmetamorphosis/NeuralNets_Project_DementiaNet/blob/main/notebooks/specaugment/03_compare_baseline_vs_specaugment.ipynb) |
+
+**Data:** audio and metadata are **not** stored in this Git repo (size and licensing). Point `BASE_DIR` in [`config.py`](config.py) at your Drive folder that mirrors the expected layout (`audio/`, `metadata/`, etc.), or adjust paths once and reuse.
 
 ---
 
