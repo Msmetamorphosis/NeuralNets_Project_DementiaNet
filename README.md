@@ -403,11 +403,6 @@ This project was completed as a collaborative research effort involving baseline
 - Re executed the validated training and evaluation pipeline to confirm reproducibility of experimental results
   
 
-### Josh Zuniga
-
-- Explored alternative implementation approaches during early stages of the project to evaluate potential training and preprocessing strategies 
-- Contributed to experimentation around pipeline configuration
-- Organizing experiment outputs in the results/ directory
 
 ### All parties
 - Contributed to analysis, writing and organization of proposal, midterm and final reports, 
