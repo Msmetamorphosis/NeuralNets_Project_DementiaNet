@@ -402,9 +402,7 @@ This project was completed as a collaborative research effort involving baseline
 - Assisted with repository organization 
 - Re executed the validated training and evaluation pipeline to confirm reproducibility of experimental results
   
-
-
-### All parties
+### Both parties
 - Contributed to analysis, writing and organization of proposal, midterm and final reports, 
 ## Reproducibility
 
@@ -414,7 +412,7 @@ Training, evaluation, and dataset construction steps are fully documented within
 
 ## Experiment Results
 
-| Experiment | Accuracy | Precision | Recall | F1 Score |
-|-----------|----------|----------|--------|---------|
-| Baseline Wav2Vec2 | TBD | TBD | TBD | TBD |
-| Wav2Vec2 + SpecAugment | TBD | TBD | TBD | TBD |
+| Experiment | Accuracy | Precision | Recall | F1 Score | No-Dementia Recall |
+|-----------|----------|----------|--------|---------|--------------------|
+| Baseline Wav2Vec2 | 44.74% | 0.503 | 0.503 | 0.4439 | 0.292 |
+| Wav2Vec2 + SpecAugment | 57.9% | 0.57 | 0.57 | 0.568 | 0.583 |
